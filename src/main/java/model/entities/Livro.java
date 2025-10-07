@@ -19,15 +19,17 @@ public class Livro {
     @ManyToOne
     @JoinColumn(name = "idAutor")
     private Autor autor;
+    private boolean statusDeAluguel;
 
     public Livro() {
     }
 
-    public Livro(String nome, LocalDate dataPublicacao, int numeroDePaginas, Autor autor) {
+    public Livro(String nome, LocalDate dataPublicacao, int numeroDePaginas, Autor autor,boolean statusDeAluguel) {
         this.nome = nome;
         this.dataPublicacao = dataPublicacao;
         this.numeroDePaginas = numeroDePaginas;
         this.autor = autor;
+        this.statusDeAluguel = statusDeAluguel;
     }
 
     public long getId() {
@@ -68,5 +70,13 @@ public class Livro {
 
     public void setAutor(Autor autor) {
         this.autor = autor;
+    }
+
+    public boolean isStatusDeAluguel() {
+        return statusDeAluguel;
+    }
+
+    public void setStatusDeAluguel(boolean statusDeAluguel) {
+        this.statusDeAluguel = statusDeAluguel;
     }
 }
