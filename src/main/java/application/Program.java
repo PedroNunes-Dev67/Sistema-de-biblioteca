@@ -1,16 +1,19 @@
 package application;
 
-
+import model.entities.Autor;
 import model.entities.Livro;
 import model.services.BibliotecaService;
 
-import java.util.List;
+import java.time.LocalDate;
 
 public class Program {
     public static void main(String[] args) {
 
-        List<Livro> listLivro = BibliotecaService.findAllLivro();
+        Autor autor = BibliotecaService.findAutor(2);
 
-        listLivro.forEach(livro -> System.out.println(livro.getNome()));
+        Livro livro = new Livro("Da terra a Lua", LocalDate.parse("1865-08-14"), 300, autor, true);
+
+        BibliotecaService.adicionarLivro(livro);
+        System.out.println("Livro cadastrado!");
     }
 }

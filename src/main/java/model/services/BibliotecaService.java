@@ -15,14 +15,13 @@ public class BibliotecaService {
     private static final EntityManager entityManager = entityManagerFactory.createEntityManager();
 
     public static void adicionarLivro(Livro livro){
-
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(livro);
             entityManager.getTransaction().commit();
         }
         catch (RuntimeException e){
-            System.out.println(e.getMessage());
+            System.out.println("Erro! Não foi possivel cadastrar o livro.");
         }
     }
 
