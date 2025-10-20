@@ -25,12 +25,23 @@ public class BibliotecaService {
 
     public static Autor findAutor(int id){
 
-        Autor autor = entityManager.find(Autor.class, 1);
+        Autor autor = entityManager.find(Autor.class, id);
         if(autor == null){
             throw new RuntimeException("Erro! Autor não encontrado");
         }
         else {
             return autor;
+        }
+    }
+
+    public static Livro findLivro(int id){
+        Livro livro = entityManager.find(Livro.class, id);
+
+        if (livro == null){
+                throw new RuntimeException("ERRO! Livro não encontrado.");
+        }
+        else{
+            return livro;
         }
     }
 }

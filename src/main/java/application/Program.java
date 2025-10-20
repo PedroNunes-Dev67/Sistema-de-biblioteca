@@ -1,14 +1,14 @@
 package application;
 
-import model.entities.Autor;
+
+import model.entities.Livro;
 import model.services.BibliotecaService;
 
 public class Program {
     public static void main(String[] args) {
 
+        Livro livro = BibliotecaService.findLivro(1);
 
-        Autor autor = BibliotecaService.findAutor(1);
-
-        System.out.println(autor.getNome());
+        System.out.println(livro.getNome());
     }
 }
