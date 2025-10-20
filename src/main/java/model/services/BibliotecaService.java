@@ -6,6 +6,8 @@ import jakarta.persistence.Persistence;
 import model.entities.Autor;
 import model.entities.Livro;
 
+import java.util.List;
+
 public class BibliotecaService {
 
     private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("biblioteca");
@@ -42,6 +44,18 @@ public class BibliotecaService {
         }
         else{
             return livro;
+        }
+    }
+
+    public static List<Livro> findAllLivroForAutor(int id){
+
+        Autor autor = entityManager.find(Autor.class, id);
+
+        if(autor == null){
+            throw new RuntimeException("Erro! Autor não encontrado");
+        }
+        else{
+            return autor.getLista();
         }
     }
 }
