@@ -3,6 +3,7 @@ package model.services;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 import model.entities.Autor;
 import model.entities.Livro;
 
@@ -29,7 +30,7 @@ public class BibliotecaService {
 
         Autor autor = entityManager.find(Autor.class, id);
         if(autor == null){
-            throw new RuntimeException("Erro! Autor não encontrado");
+            throw new RuntimeException("Erro! Autor não encontrado.");
         }
         else {
             return autor;
@@ -40,7 +41,7 @@ public class BibliotecaService {
         Livro livro = entityManager.find(Livro.class, id);
 
         if (livro == null){
-                throw new RuntimeException("ERRO! Livro não encontrado.");
+                throw new RuntimeException("Erro! Livro não encontrado.");
         }
         else{
             return livro;
@@ -52,10 +53,20 @@ public class BibliotecaService {
         Autor autor = entityManager.find(Autor.class, id);
 
         if(autor == null){
-            throw new RuntimeException("Erro! Autor não encontrado");
+            throw new RuntimeException("Erro! Autor não encontrado.");
         }
         else{
             return autor.getLista();
         }
+    }
+
+    public static List<Livro> findAllLivro(){
+        TypedQuery<Livro> list = entityManager.createQuery("SELECT l FROM Livro as l", Livro.class);
+
+        if (list.getResultList().isEmpty()){
+            throw new RuntimeException("Erro! Lista não encontrada.");
+        }
+        List<Livro> listLivro = list.getResultList();
+        return listLivro;
     }
 }
