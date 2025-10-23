@@ -37,6 +37,14 @@ public class BibliotecaService {
         livro.setStatusDeAluguel(false);
         entityManager.getTransaction().commit();
     }
+    
+    public static List<Livro> livrosDisponiveis(){
+
+        TypedQuery<Livro> query = entityManager.createQuery("SELECT l FROM Livro as l", Livro.class);
+
+        return query.getResultList().stream().filter(Livro::isStatusDeAluguel).toList();
+
+    }
 
     public static Autor findAutor(int id){
 

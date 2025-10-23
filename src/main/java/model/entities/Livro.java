@@ -79,4 +79,15 @@ public class Livro {
     public void setStatusDeAluguel(boolean statusDeAluguel) {
         this.statusDeAluguel = statusDeAluguel;
     }
+
+    @Override
+    public String toString() {
+
+        String status = (statusDeAluguel) ? "Disponível":"Indisponível";
+
+
+        return "Livro: "+nome+" | Autor: "+autor.getNome()
+        +"\n N° de páginas: "+numeroDePaginas+" | Publicação: "+dataPublicacao
+        +"\n Status: "+status+"\n -------------------------------------------------";
+    }
 }
