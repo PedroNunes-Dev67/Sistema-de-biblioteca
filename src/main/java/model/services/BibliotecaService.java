@@ -46,6 +46,17 @@ public class BibliotecaService {
 
     }
 
+    public static void apagarLivro(int id){
+
+        entityManager.getTransaction().begin();
+        Livro livro = entityManager.find(Livro.class, id);
+        if (livro == null){
+            throw new RuntimeException("Erro! Livro não encontrado!");
+        }
+        entityManager.remove(livro);
+        entityManager.getTransaction().commit();
+    }
+
     public static Autor findAutor(int id){
 
         Autor autor = entityManager.find(Autor.class, id);

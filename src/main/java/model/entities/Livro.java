@@ -86,8 +86,8 @@ public class Livro {
         String status = (statusDeAluguel) ? "Disponível":"Indisponível";
 
 
-        return "Livro: "+nome+" | Autor: "+autor.getNome()
-        +"\n N° de páginas: "+numeroDePaginas+" | Publicação: "+dataPublicacao
+        return "Livro: "+nome+"\n Autor: "+autor.getNome()
+        +"\n N° de páginas: "+numeroDePaginas+"\n Publicação: "+dataPublicacao
         +"\n Status: "+status+"\n -------------------------------------------------";
     }
 }
