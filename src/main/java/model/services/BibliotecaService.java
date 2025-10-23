@@ -25,6 +25,19 @@ public class BibliotecaService {
         }
     }
 
+    public static void alugarLivro(int id){
+
+        entityManager.getTransaction().begin();
+        Livro livro = entityManager.find(Livro.class, id);
+
+        if (livro == null){
+            throw new RuntimeException("Erro! Livro não encontrado");
+        }
+
+        livro.setStatusDeAluguel(false);
+        entityManager.getTransaction().commit();
+    }
+
     public static Autor findAutor(int id){
 
         Autor autor = entityManager.find(Autor.class, id);
@@ -65,7 +78,7 @@ public class BibliotecaService {
         if (list.getResultList().isEmpty()){
             throw new RuntimeException("Erro! Lista não encontrada.");
         }
-        List<Livro> listLivro = list.getResultList();
-        return listLivro;
+        return list.getResultList();
+
     }
 }
