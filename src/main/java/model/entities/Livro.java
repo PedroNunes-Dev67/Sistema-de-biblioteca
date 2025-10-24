@@ -80,8 +80,7 @@ public class Livro {
         this.statusDeAluguel = statusDeAluguel;
     }
 
-    @Override
-    public String toString() {
+    public String toString(String paramentro) {
 
         String status = (statusDeAluguel) ? "Disponível":"Indisponível";
 
@@ -89,5 +88,10 @@ public class Livro {
         return "Livro: "+nome+"\n Autor: "+autor.getNome()
         +"\n N° de páginas: "+numeroDePaginas+"\n Publicação: "+dataPublicacao
         +"\n Status: "+status+"\n -------------------------------------------------";
+    }
+
+    @Override
+    public String toString() {
+        return id+" | "+nome;
     }
 }

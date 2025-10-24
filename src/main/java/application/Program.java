@@ -5,12 +5,19 @@ import model.entities.Livro;
 import model.services.BibliotecaService;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
 
-        List<Livro> list = BibliotecaService.findAllLivro();
+        Scanner sc = new Scanner(System.in);
 
-        list.forEach(System.out::println);
+
+
+
+
+
+        BibliotecaService.closeConnection();
+        sc.close();
     }
 }

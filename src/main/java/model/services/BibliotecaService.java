@@ -7,6 +7,7 @@ import jakarta.persistence.TypedQuery;
 import model.entities.Autor;
 import model.entities.Livro;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class BibliotecaService {
@@ -98,6 +99,32 @@ public class BibliotecaService {
             throw new RuntimeException("Erro! Lista não encontrada.");
         }
         return list.getResultList();
-
     }
+
+    public static List<Autor> findAllAutor(){
+
+        TypedQuery<Autor> query = entityManager.createQuery("SELECT a FROM Autor as a", Autor.class);
+
+        return query.getResultList();
+    }
+
+    public static void closeConnection(){
+
+        try{
+            if(entityManagerFactory != null){
+                entityManagerFactory.close();
+            }
+
+            if (entityManager == null){
+                entityManager.close();
+            }
+
+            System.out.println("Conexão fechada!");
+        }
+        catch (NullPointerException e){
+            System.out.println("Erro! nã foi possível fechar a conexão!");
+        }
+    }
+
+
 }

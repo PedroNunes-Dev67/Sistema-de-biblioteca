@@ -45,4 +45,9 @@ public class Autor {
     public void setLista(List<Livro> lista) {
         this.lista = lista;
     }
+
+    @Override
+    public String toString() {
+        return id+" | "+nome;
+    }
 }
