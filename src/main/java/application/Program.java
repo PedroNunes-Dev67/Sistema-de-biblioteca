@@ -1,10 +1,8 @@
 package application;
 
 
-import model.entities.Livro;
 import model.services.BibliotecaService;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class Program {
@@ -12,7 +10,7 @@ public class Program {
 
         Scanner sc = new Scanner(System.in);
 
-
+        BibliotecaService.menuDeOpcoes();
 
 
 

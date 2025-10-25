@@ -7,7 +7,6 @@ import jakarta.persistence.TypedQuery;
 import model.entities.Autor;
 import model.entities.Livro;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class BibliotecaService {
@@ -106,6 +105,21 @@ public class BibliotecaService {
         TypedQuery<Autor> query = entityManager.createQuery("SELECT a FROM Autor as a", Autor.class);
 
         return query.getResultList();
+    }
+
+    public static void menuDeOpcoes(){
+        System.out.println("--------------------------------");
+        System.out.println("          MENU DE OPÇÕES        ");
+        System.out.println("--------------------------------");
+        System.out.println("(1) Alugar livro");
+        System.out.println("(2) Listar todos os livros disponíveis");
+        System.out.println("(3) Listar todos os livros por Autor");
+        System.out.println("(4) Listar dados de todos os livros");
+        System.out.println("(5) Listar todos os autores");
+        System.out.println("(6) Atualizar Livro");
+        System.out.println("(7) Apagar livro");
+        System.out.println("(8) SAIR");
+        System.out.println("--------------------------------");
     }
 
     public static void closeConnection(){
