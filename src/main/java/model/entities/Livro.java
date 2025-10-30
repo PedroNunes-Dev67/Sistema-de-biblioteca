@@ -85,9 +85,13 @@ public class Livro {
         String status = (statusDeAluguel) ? "Disponível":"Indisponível";
 
 
-        return "Livro: "+nome+"\n Autor: "+autor.getNome()
-        +"\n N° de páginas: "+numeroDePaginas+"\n Publicação: "+dataPublicacao
-        +"\n Status: "+status+"\n -------------------------------------------------";
+        return "Livro: "+nome+"\nAutor: "+autor.getNome()
+        +"\nN° de páginas: "+numeroDePaginas+"\nPublicação: "+dataPublicacao
+        +"\nStatus: "+status+"\n-------------------------------------------------";
+    }
+
+    public String toString(boolean parametro){
+        return id+" | Nome: "+nome+" | Status: "+statusDeAluguel;
     }
 
     @Override

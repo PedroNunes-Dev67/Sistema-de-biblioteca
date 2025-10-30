@@ -7,6 +7,7 @@ import jakarta.persistence.TypedQuery;
 import model.entities.Autor;
 import model.entities.Livro;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class BibliotecaService {
@@ -36,6 +37,17 @@ public class BibliotecaService {
 
         livro.setStatusDeAluguel(false);
         entityManager.getTransaction().commit();
+        System.out.println("Livro alugado!");
+    }
+    public static Livro atualizarLivro(int id){
+        entityManager.getTransaction().begin();
+        Livro livro = entityManager.find(Livro.class, id);
+        if (livro == null){
+            throw new RuntimeException("Erro!, Livro não encontrado!");
+        }
+        livro.setStatusDeAluguel(true);
+        entityManager.getTransaction().commit();
+        return livro;
     }
     
     public static List<Livro> livrosDisponiveis(){
@@ -108,7 +120,7 @@ public class BibliotecaService {
     }
 
     public static void menuDeOpcoes(){
-        System.out.println("--------------------------------");
+        System.out.println("\n\n--------------------------------");
         System.out.println("          MENU DE OPÇÕES        ");
         System.out.println("--------------------------------");
         System.out.println("(1) Alugar livro");
@@ -116,10 +128,17 @@ public class BibliotecaService {
         System.out.println("(3) Listar todos os livros por Autor");
         System.out.println("(4) Listar dados de todos os livros");
         System.out.println("(5) Listar todos os autores");
-        System.out.println("(6) Atualizar Livro");
+        System.out.println("(6) Atualizar status do livro");
         System.out.println("(7) Apagar livro");
         System.out.println("(8) SAIR");
         System.out.println("--------------------------------");
+    }
+
+    public static void comp(List<Livro> list){
+        Comparator<Livro> comp = (a,b) ->
+                a.getNome().toUpperCase().compareTo(b.getNome().toUpperCase());
+
+        list.sort(comp);
     }
 
     public static void closeConnection(){
