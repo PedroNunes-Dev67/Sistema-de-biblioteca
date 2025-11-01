@@ -27,6 +27,17 @@ public class BibliotecaService {
             entityManager.getTransaction().commit();
     }
 
+    public static Autor adicionarAutor(Autor autor){
+        if (autor == null){
+            throw new NotFindException("Erro, autor invalido");
+        }
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(autor);
+        entityManager.getTransaction().commit();
+        return autor;
+    }
+
     public static void alugarLivro(int id){
 
         entityManager.getTransaction().begin();
@@ -138,9 +149,10 @@ public class BibliotecaService {
         System.out.println("(3) Listar todos os livros por Autor");
         System.out.println("(4) Listar dados de todos os livros");
         System.out.println("(5) Listar todos os autores");
-        System.out.println("(6) Atualizar status do livro");
-        System.out.println("(7) Apagar livro");
-        System.out.println("(8) SAIR");
+        System.out.println("(6) Adicionar Livro");
+        System.out.println("(7) Atualizar status do livro");
+        System.out.println("(8) Apagar livro");
+        System.out.println("(9) SAIR");
         System.out.println("--------------------------------");
     }
 
