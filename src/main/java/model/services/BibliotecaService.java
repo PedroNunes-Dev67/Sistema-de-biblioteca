@@ -6,6 +6,7 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 import model.entities.Autor;
 import model.entities.Livro;
+import model.exception.NotFindException;
 
 import java.util.Comparator;
 import java.util.List;
@@ -16,14 +17,14 @@ public class BibliotecaService {
     private static final EntityManager entityManager = entityManagerFactory.createEntityManager();
 
     public static void adicionarLivro(Livro livro){
-        try {
+
+            if (livro == null){
+                throw new NotFindException("Erro! Livro não encontrado");
+            }
+
             entityManager.getTransaction().begin();
             entityManager.persist(livro);
             entityManager.getTransaction().commit();
-        }
-        catch (RuntimeException e){
-            System.out.println("Erro! Não foi possivel cadastrar o livro.");
-        }
     }
 
     public static void alugarLivro(int id){
@@ -32,7 +33,7 @@ public class BibliotecaService {
         Livro livro = entityManager.find(Livro.class, id);
 
         if (livro == null){
-            throw new RuntimeException("Erro! Livro não encontrado");
+            throw new NotFindException("Erro! Livro não encontrado");
         }
 
         livro.setStatusDeAluguel(false);
@@ -43,7 +44,7 @@ public class BibliotecaService {
         entityManager.getTransaction().begin();
         Livro livro = entityManager.find(Livro.class, id);
         if (livro == null){
-            throw new RuntimeException("Erro!, Livro não encontrado!");
+            throw new NotFindException("Erro!, Livro não encontrado!");
         }
         livro.setStatusDeAluguel(true);
         entityManager.getTransaction().commit();
@@ -54,8 +55,13 @@ public class BibliotecaService {
 
         TypedQuery<Livro> query = entityManager.createQuery("SELECT l FROM Livro as l", Livro.class);
 
-        return query.getResultList().stream().filter(Livro::isStatusDeAluguel).toList();
+        List<Livro> list = query.getResultList().stream().filter(Livro::isStatusDeAluguel).toList();
 
+        if (list.isEmpty()){
+            throw new NotFindException("Erro! Lista vazia!");
+        }
+
+        return list;
     }
 
     public static void apagarLivro(int id){
@@ -63,7 +69,7 @@ public class BibliotecaService {
         entityManager.getTransaction().begin();
         Livro livro = entityManager.find(Livro.class, id);
         if (livro == null){
-            throw new RuntimeException("Erro! Livro não encontrado!");
+            throw new NotFindException("Erro! Livro não encontrado!");
         }
         entityManager.remove(livro);
         entityManager.getTransaction().commit();
@@ -73,7 +79,7 @@ public class BibliotecaService {
 
         Autor autor = entityManager.find(Autor.class, id);
         if(autor == null){
-            throw new RuntimeException("Erro! Autor não encontrado.");
+            throw new NotFindException("Erro! Autor não encontrado.");
         }
         else {
             return autor;
@@ -84,7 +90,7 @@ public class BibliotecaService {
         Livro livro = entityManager.find(Livro.class, id);
 
         if (livro == null){
-                throw new RuntimeException("Erro! Livro não encontrado.");
+                throw new NotFindException("Erro! Livro não encontrado.");
         }
         else{
             return livro;
@@ -96,7 +102,7 @@ public class BibliotecaService {
         Autor autor = entityManager.find(Autor.class, id);
 
         if(autor == null){
-            throw new RuntimeException("Erro! Autor não encontrado.");
+            throw new NotFindException("Erro! Autor não encontrado.");
         }
         else{
             return autor.getLista();
@@ -107,7 +113,7 @@ public class BibliotecaService {
         TypedQuery<Livro> list = entityManager.createQuery("SELECT l FROM Livro as l", Livro.class);
 
         if (list.getResultList().isEmpty()){
-            throw new RuntimeException("Erro! Lista não encontrada.");
+            throw new NotFindException("Erro! Lista não encontrada.");
         }
         return list.getResultList();
     }
@@ -115,6 +121,10 @@ public class BibliotecaService {
     public static List<Autor> findAllAutor(){
 
         TypedQuery<Autor> query = entityManager.createQuery("SELECT a FROM Autor as a", Autor.class);
+
+        if (query.getResultList().isEmpty()){
+            throw new NotFindException("Erro! Lista não encontrada.");
+        }
 
         return query.getResultList();
     }
